@@ -7,7 +7,7 @@ def read(fname):
 
 
 setup(name='ncdu-compare',
-      version='0.0.1',
+      version='0.0.2',
       description='ncdu-compare',
       url='https://github.com/yaroslaff/ncdu-compare',
       author='Yaroslav Polyakov',

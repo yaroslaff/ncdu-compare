@@ -109,10 +109,10 @@ def main():
 
 
     with open(args.old) as fh:
-        old_data = json.load(fh)
+        old_data = json.load(fh, encoding='utf-8')
 
     with open(args.new) as fh:
-        new_data = json.load(fh)
+        new_data = json.load(fh, encoding='utf-8')
 
     new = Directory(new_data[3], parent = None)
     old = Directory(old_data[3], parent = None)
