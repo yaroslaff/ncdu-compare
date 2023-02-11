@@ -108,11 +108,11 @@ def main():
     args = get_args()
 
 
-    with open(args.old) as fh:
-        old_data = json.load(fh, encoding='utf-8')
+    with open(args.old, encoding='utf-8') as fh:
+        old_data = json.load(fh)
 
-    with open(args.new) as fh:
-        new_data = json.load(fh, encoding='utf-8')
+    with open(args.new, encoding='utf-8') as fh:
+        new_data = json.load(fh)
 
     new = Directory(new_data[3], parent = None)
     old = Directory(old_data[3], parent = None)
