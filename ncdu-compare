@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 
-version = '0.0.5'
+version = '0.0.6'
 
 args = None
 
@@ -77,6 +77,7 @@ def get_args():
         formatter_class=argparse.RawTextHelpFormatter, epilog=epilog)
     parser.add_argument('old', help='old ncdu dump')
     parser.add_argument('new', help='new ncdu dump')
+    parser.add_argument('-e', '--error', default='replace', help='Unicode error handling mode: replace (default), ignore , strict, surrogateescape')
 
     return parser.parse_args()
 
@@ -108,14 +109,14 @@ def report(path, old, new):
 def main():
     global args
     args = get_args()
+    errors = args.error
 
 
 
-
-    with open(args.old, encoding='utf-8') as fh:
+    with open(args.old, encoding='utf-8', errors=errors) as fh:
         old_data = json.load(fh)
 
-    with open(args.new, encoding='utf-8') as fh:
+    with open(args.new, encoding='utf-8', errors=errors) as fh:
         new_data = json.load(fh)
 
     new = Directory(new_data[3], parent = None)

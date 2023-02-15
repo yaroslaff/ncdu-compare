@@ -35,6 +35,9 @@ $ ncdu-compare /tmp/1 /tmp/2 | sort -n | tail -n 5
 1049894 /var/log (755103600 > 756153494)
 ~~~
 
+## Invalid unicode filenames
+Sometimes ncdu can produce invalid JSON files (see https://dev.yorhel.nl/ncdu/jsonfmt). When loading ncdu files ncdu-compare uses (default) 'replace' mode to handle unicode errors. You can  override it with `-e`/`--error` options, e.g. `--error ignore`. More at python doc to [open()](https://docs.python.org/3/library/functions.html#open).
+
 ## See also
 
 My other project [Plus Size](https://github.com/yaroslaff/pluss) to detect changes in short-time (e.g. fast growing log files)
