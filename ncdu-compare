@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 
-version = '0.0.6'
+version = '0.0.7'
 
 args = None
 
@@ -103,7 +103,7 @@ def report(path, old, new):
         return
 
     # print(f"{diff} {verdict} {t} {path} ({oasize} => {nasize})")
-    print(f"{diff} {path} ({oasize} > {nasize})")
+    print(f"{diff} {t} {path} ({oasize} > {nasize})")
 
 
 def main():
