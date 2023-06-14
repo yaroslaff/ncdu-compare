@@ -28,11 +28,11 @@ $ ncdu /var/log/ -0o /tmp/2
 
 # see top usage
 $ ncdu-compare /tmp/1 /tmp/2 | sort -n | tail -n 5
-155 /var/log/syslog (8673820 > 8673975)
-343 /var/log/auth.log (45035 > 45378)
-576 /var/log/minidlna.log (20389653 > 20390229)
-1048576 /var/log/zzz.log (0 > 1048576)
-1049894 /var/log (755103600 > 756153494)
+575 FILE /var/log/auth.log (273797 > 274372)
+12209 FILE /var/log/daemon.log (62452009 > 62464218)
+12286 FILE /var/log/syslog (63463377 > 63475663)
+1048576 FILE /var/log/zzz.log (0 > 1048576)
+1074015 DIR /var/log (3895153251 > 3896227266)
 ~~~
 
 ## Invalid unicode filenames
