@@ -13,26 +13,32 @@ pip3 install git+https://github.com/yaroslaff/ncdu-compare.git
 
 ## Example usage
 
+Create ncdu snapshots with command:
+
 ~~~bash
-# measure current /var/log 
-$ ncdu /var/log/ -0o /tmp/1
+# now
+$ ncdu /some/path/ -0o /tmp/snapshot-1
 
-# create extra 1M file... and just wait
-$ sudo dd if=/dev/zero of=/var/log/zzz.log bs=1M count=1
-1+0 records in
-1+0 records out
-1048576 bytes (1.0 MB, 1.0 MiB) copied, 0.00229604 s, 457 MB/s
+# after some time, e.g. daily
+$ ncdu /some/path/ -0o /tmp/snapshot-2
+~~~
 
-# measure /var/log again
-$ ncdu /var/log/ -0o /tmp/2
+Compare it
+~~~bash
+$ ncdu-compare /tmp/snapshot-1 /tmp/snapshot-2 | sort -n | tail -n 5
+~~~
 
-# see top usage
-$ ncdu-compare /tmp/1 /tmp/2 | sort -n | tail -n 5
-575 FILE /var/log/auth.log (273797 > 274372)
-12209 FILE /var/log/daemon.log (62452009 > 62464218)
-12286 FILE /var/log/syslog (63463377 > 63475663)
-1048576 FILE /var/log/zzz.log (0 > 1048576)
-1074015 DIR /var/log (3895153251 > 3896227266)
+Example real output (first number is growth in bytes for `sort -n`, may be negative):
+~~~
+2125273220 DIR /home/username/public_html/client-portal/storage/framework/cache (18.96G => 21.09G (2.13G))
+2125273220 DIR /home/username/public_html/client-portal/storage/framework/cache/data (18.96G => 21.09G (2.13G))
+2125741830 DIR /home/username/public_html/client-portal/storage/framework (18.97G => 21.10G (2.13G))
+2153400708 DIR /home/username/public_html/client-portal/storage (19.29G => 21.44G (2.15G))
+3134727368 DIR /home/username/public_html/client-portal/public/alavie/customer_folder (36.76G => 39.90G (3.13G))
+3146881276 DIR /home/username/public_html/client-portal/public/alavie (52.62G => 55.77G (3.15G))
+4649987199 DIR /home/username/public_html/client-portal/public (158.13G => 162.78G (4.65G))
+6803387907 DIR /home/username/public_html/client-portal (177.97G => 184.78G (6.80G))
+6805286889 DIR /home/username/public_html (179.92G => 186.73G (6.81G))
 ~~~
 
 ## Invalid unicode filenames

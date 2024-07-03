@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 
-version = '0.0.7'
+__version__ = '0.0.8'
 
 args = None
 
@@ -73,13 +73,36 @@ def get_args():
     epilog = f'''Generate files with ncdu: ncdu -0xo /tmp/ncdu0 /var/log
     '''
 
-    parser = argparse.ArgumentParser(description=f'Compare old and new ncdu dumps. ver. {version}',
+    parser = argparse.ArgumentParser(description=f'Compare old and new ncdu dumps. ver. {__version__}',
         formatter_class=argparse.RawTextHelpFormatter, epilog=epilog)
     parser.add_argument('old', help='old ncdu dump')
     parser.add_argument('new', help='new ncdu dump')
     parser.add_argument('-e', '--error', default='replace', help='Unicode error handling mode: replace (default), ignore , strict, surrogateescape')
 
     return parser.parse_args()
+
+def kmgt(num):
+    """
+    Convert a number into a human-readable string with K, M, G, T suffixes.
+
+    Parameters:
+    num (float): The number to be converted.
+
+    Returns:
+    str: The human-readable string.
+    """
+    suffixes = ['K', 'M', 'G', 'T']
+    magnitude = 0
+    
+    while abs(num) >= 1000 and magnitude < len(suffixes):
+        magnitude += 1
+        num /= 1000.0
+    
+    if magnitude == 0:
+        return f"{num:.0f}"
+    else:
+        return f"{num:.2f}{suffixes[magnitude-1]}"
+
 
 def report(path, old, new):
     try:
@@ -98,12 +121,15 @@ def report(path, old, new):
         nasize = 0
 
     diff = nasize - oasize
+    diff_si = kmgt(diff)
+    nasize_si = kmgt(nasize)
+    oasize_si = kmgt(oasize)
 
     if not diff:
         return
 
     # print(f"{diff} {verdict} {t} {path} ({oasize} => {nasize})")
-    print(f"{diff} {t} {path} ({oasize} > {nasize})")
+    print(f"{diff} {t} {path} ({oasize_si} => {nasize_si} ({diff_si}))")
 
 
 def main():

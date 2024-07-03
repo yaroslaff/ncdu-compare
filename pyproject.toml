@@ -1,0 +1,38 @@
+[build-system]
+# requires = ["setuptools >= 40.6.0", "wheel"]
+requires = ["hatchling", "wheel"]
+
+# build-backend = "setuptools.build_meta"
+build-backend = "hatchling.build"
+
+[project]
+name="ncdu_compare"
+dynamic = [ "version" ]
+
+# how version managed by hatch
+# version="0.1.17"
+
+dependencies = [
+]
+authors = [
+  { name="Yaroslav Polyakov", email="yaroslaff@gmail.com" },
+]
+description = "Compare ncdu export files and show difference to find what took most space since previous measurement"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/yaroslaff/ncdu-compare"
+Issues = "https://github.com/yaroslaff/ncdu-compare/issues"
+
+
+[project.scripts]
+ncdu-compare = "ncdu_compare:main"
+
+[tool.hatch.version]
+path = 'ncdu_compare/__init__.py'
